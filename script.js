@@ -1,12 +1,20 @@
 let container = document.querySelector("#container");
-//Default grid values
+
+//Sets up the grid size slider
+let gridSlider = document.querySelector("#grid-slider");
+gridSlider.value = 16;
+let gridSliderLabel = document.querySelector("#grid-slider-label");
+
+gridSlider.addEventListener("input", function () {
+  gridSliderLabel.textContent = gridSlider.value + " x " + gridSlider.value;
+});
 
 //Sets up the "Reset Grid" button
 let resetButton = document.querySelector("#btn-reset");
 resetButton.addEventListener("click", function () {
   let amount;
   do {
-    amount = prompt("How many squares per side? (Max 100)");
+    amount = gridSlider.value;
   } while (amount > 100);
 
   initializeGrid(amount);
