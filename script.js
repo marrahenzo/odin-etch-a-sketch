@@ -1,5 +1,9 @@
 let container = document.querySelector("#container");
 
+//Determines whether the mouse will "paint" over the grid
+let mouseActivated = false;
+container.onmousedown = () => (mouseActivated = !mouseActivated);
+
 //Sets up the grid size slider
 let gridSlider = document.querySelector("#grid-slider");
 gridSlider.value = 16;
@@ -7,6 +11,7 @@ let gridSliderLabel = document.querySelector("#grid-slider-label");
 
 gridSlider.addEventListener("input", function () {
   gridSliderLabel.textContent = gridSlider.value + " x " + gridSlider.value;
+  mouseActivated = false;
 });
 
 //Sets up the "Reset Grid" button
@@ -25,11 +30,8 @@ let colorSelector = document.querySelector("#color");
 colorSelector.style.backgroundColor = colorSelector.value;
 colorSelector.addEventListener("input", function () {
   colorSelector.style.backgroundColor = colorSelector.value;
+  mouseActivated = false;
 });
-
-//Determines whether the mouse will "paint" over the grid
-let mouseActivated = false;
-container.onmousedown = () => (mouseActivated = !mouseActivated);
 
 //Called upon startup and upon reset
 function initializeGrid(amountOfSquares) {
