@@ -2,10 +2,9 @@ let container = document.querySelector("#container");
 let totalSquares = 256;
 let squaresPerRow = Math.sqrt(totalSquares);
 let colorSelector = document.querySelector("#color");
-let mouseDown = false;
+let mouseActivated = false;
 
-document.body.onmousedown = () => (mouseDown = true);
-document.body.onmouseup = () => (mouseDown = false);
+document.body.onmousedown = () => (mouseActivated = !mouseActivated);
 
 for (let i = 0; i < totalSquares; i++) {
   let squareDiv = document.createElement("div");
@@ -16,13 +15,16 @@ for (let i = 0; i < totalSquares; i++) {
   container.appendChild(squareDiv);
 }
 
-let allSquares = document.querySelectorAll(".square");
-allSquares.forEach((square) => {
-  square.addEventListener("mousemove", function () {
-    if (mouseDown) {
-      square.style.backgroundColor = colorSelector.value;
-    }
+function initializeGrid() {
+  let allSquares = document.querySelectorAll(".square");
+  allSquares.forEach((square) => {
+    square.style.backgroundColor = "white";
+    square.addEventListener("mousemove", function () {
+      if (mouseActivated) {
+        square.style.backgroundColor = colorSelector.value;
+      }
+    });
   });
-});
+}
 
-console.log(container);
+initializeGrid();
