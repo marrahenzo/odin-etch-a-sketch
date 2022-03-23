@@ -1,10 +1,12 @@
 body {
-  background-color: antiquewhite;
+  background-color: #0eb379;
 }
 
 h1 {
   text-align: center;
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  color: #09704c;
 }
 
 #options-container {
@@ -24,14 +26,14 @@ h1 {
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
-  border: 10px solid rgb(139, 130, 116);
+  border: 10px solid #09704c;
   border-radius: 10px;
 }
 
 #btn-reset {
   font-size: 20px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background-color: rgb(146, 114, 114);
+  background-color: #05432d;
   border: none;
   border-radius: 5px;
   box-shadow: 2px 2px black;
