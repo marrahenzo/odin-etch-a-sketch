@@ -4,6 +4,30 @@ let container = document.querySelector("#container");
 let mouseActivated = false;
 container.onmousedown = () => (mouseActivated = !mouseActivated);
 
+//Sets up color mode buttons
+let colorMode = "normal";
+let colorNormalButton = document.querySelector("#btn-normal");
+let colorRainbowButton = document.querySelector("#btn-rainbow");
+let colorRandomDarkenButton = document.querySelector("#btn-random-darken");
+
+colorNormalButton.addEventListener("click", function () {
+  colorMode = "normal";
+  mouseActivated = false;
+});
+colorRainbowButton.addEventListener("click", function () {
+  colorMode = "rainbow";
+  mouseActivated = false;
+});
+colorRandomDarkenButton.addEventListener("click", function () {
+  colorMode = "darken";
+  mouseActivated = false;
+});
+
+//Random color variables for their respective modes
+let color1 = Math.random() * 256;
+let color2 = Math.random() * 256;
+let color3 = Math.random() * 256;
+
 //Sets up the grid size slider
 let gridSlider = document.querySelector("#grid-slider");
 gridSlider.value = 16;
@@ -55,12 +79,48 @@ function initializeGrid(amountOfSquares) {
   let allSquares = document.querySelectorAll(".square");
   allSquares.forEach((square) => {
     square.style.backgroundColor = "white";
-    square.addEventListener("mousemove", function () {
+    square.addEventListener("mouseenter", function () {
       if (mouseActivated) {
-        square.style.backgroundColor = colorSelector.value;
+        switch (colorMode) {
+          case "normal":
+            square.style.backgroundColor = colorSelector.value;
+            break;
+          case "rainbow":
+            color1 = Math.random() * 256;
+            color2 = Math.random() * 256;
+            color3 = Math.random() * 256;
+            square.style.backgroundColor = `rgb(${color1}, ${color2}, ${color3})`;
+            break;
+          case "darken":
+            if (square.style.backgroundColor != "white") {
+              let rgbColors = getRgbValues(square.style.backgroundColor);
+              square.style.backgroundColor = `rgb(
+                ${rgbColors[0] - rgbColors[0] / 3},
+                ${rgbColors[1] - rgbColors[1] / 3},
+                ${rgbColors[2] - rgbColors[2] / 3}
+              )`;
+            } else {
+              color1 = Math.random() * 256;
+              color2 = Math.random() * 256;
+              color3 = Math.random() * 256;
+              square.style.backgroundColor = `rgb(${color1}, ${color2}, ${color3})`;
+            }
+            break;
+        }
       }
     });
   });
+}
+
+function getRgbValues(colorString) {
+  let stringArr = colorString.split(", ");
+  let regex = /(\d+)/g;
+  let newArr = [
+    stringArr[0].match(regex).join(),
+    stringArr[1].match(regex).join(),
+    stringArr[2].match(regex).join(),
+  ];
+  return newArr;
 }
 
 initializeGrid(16);
