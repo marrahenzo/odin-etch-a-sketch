@@ -2,7 +2,8 @@ let container = document.querySelector("#container");
 
 //Determines whether the mouse will "paint" over the grid
 let mouseActivated = false;
-container.onmousedown = () => (mouseActivated = !mouseActivated);
+document.onmousedown = () => (mouseActivated = true);
+document.onmouseup = () => (mouseActivated = false);
 
 //Sets up color mode buttons
 let colorMode = "normal";
@@ -79,7 +80,7 @@ function initializeGrid(amountOfSquares) {
   let allSquares = document.querySelectorAll(".square");
   allSquares.forEach((square) => {
     square.style.backgroundColor = "white";
-    square.addEventListener("mouseenter", function () {
+    square.addEventListener("mouseover", function () {
       if (mouseActivated) {
         switch (colorMode) {
           case "normal":
